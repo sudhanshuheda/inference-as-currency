@@ -244,6 +244,53 @@ body {
 }
 .content strong em, .content em strong { color: var(--accent); }
 
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.1rem 0 1.3rem 0;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+.content table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--fg);
+  padding: 0.45rem 0.65rem 0.45rem 0;
+  border-bottom: 1px solid var(--accent-soft);
+  vertical-align: bottom;
+}
+.content table td {
+  padding: 0.4rem 0.65rem 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-muted);
+  vertical-align: top;
+}
+.content table tr:last-child td { border-bottom: 1px solid var(--accent-soft); }
+.content table td:first-child { color: var(--fg); }
+.content table strong { color: var(--fg); }
+
+.content figure.diagram {
+  margin: 1.2rem auto 1.4rem;
+  text-align: center;
+}
+.content figure.diagram svg {
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.content figure.diagram figcaption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--fg-faint);
+  margin-top: 0.4rem;
+  line-height: 1.4;
+  font-style: normal;
+}
+
 mjx-container { font-size: 100% !important; }
 mjx-container[display="true"] {
   margin: 1rem 0 !important;
@@ -352,7 +399,7 @@ section.footnotes a.footnote-back { color: var(--fg-faint); margin-left: 0.3em; 
 <header class="topbar">
   <a href="#" class="brand">Inference as Currency</a>
   <nav class="meta">
-    <span>8 min read · 9 citations</span>
+    <span>7 min read · 9 citations</span>
     <a href="thesis_3page.pdf" download>PDF</a>
     <a href="inference-as-currency-full.docx" download>Full DOCX</a>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
@@ -380,192 +427,334 @@ section.footnotes a.footnote-back { color: var(--fg-faint); margin-left: 0.3em; 
       <p class="subtitle">A monetary theory of the AI cycle, in three pages.</p>
       <div class="meta">
         <span>November 2026</span>
-        <span>1,791 words · 8 min</span>
+        <span>1,636 words · 7 min</span>
         <span>9 citations</span>
       </div>
     </div>
 
-<p>Microsoft cancelled its internal Claude Code seats this November. The
-cost-benefit math didn’t clear. Microsoft is the most-aligned buyer for
-token-priced AI services that exists — owns Azure, holds nineteen
-percent of OpenAI, sells more enterprise software than any other firm on
-earth. If Microsoft can’t make the math work, the buyer-side problem is
-deeper than the literature has admitted. The same month, Uber burned its
-entire 2026 AI budget in four months. GitHub deprecated flat-rate
-Copilot. Anthropic moved from a token meter to opaque weekly caps.
-OpenAI walked into a Y Combinator dinner and offered two million dollars
-in tokens for equity in every founder in the room.</p>
+<p>Microsoft cancelled its internal Claude Code seats this November.
+Microsoft owns Azure, holds 19% of OpenAI, and sells more enterprise
+software than anyone — the most-aligned buyer for token-priced AI that
+exists. If the math doesn’t clear there, the buyer-side problem is
+structural. Same month: Uber burned its entire 2026 AI budget in four
+months; GitHub deprecated flat-rate Copilot; Anthropic moved from a
+token meter to opaque weekly caps; OpenAI offered $2M in tokens for
+equity to every founder at a YC dinner.</p>
 <p>The consensus view writes much larger numbers. Trillion-dollar lab
 revenues by 2030, with “AI finance ministers and central bankers”
 driving 10% GDP growth in the developing world;<a href="#fn1"
 class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
 labs priced on Netflix-and-Spotify comparables, durable margins,
-personalisation moat, commoditisation thesis “more or less
+personalisation moat, the commoditisation thesis “more or less
 irrelevant”;<a href="#fn2" class="footnote-ref" id="fnref2"
 role="doc-noteref"><sup>2</sup></a> an $800B market the lab’s seed
 investors call “a gross underestimate.”<a href="#fn3"
 class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
 None of those projections survives the November data.</p>
-<p>The platform-software comparables are wrong. AI labs are private
-currency issuers. The currency is the token. The underlying asset is the
-<em>verifier substrate</em> — the human or software that decides whether
-AI work was done correctly. Token value behaves like nineteenth-century
-private banknote value: face inside the issuer’s integrated perimeter,
-discounted with distance, vulnerable to bank runs when redemption fails.
-The rent on a token is set by the K-complexity of verification in the
-buyer’s domain — not by the technical capability of the model, not by
-the volume of tokens issued. The labs’ visible behaviour is the rational
-response of private banks to redemption stress on their notes.</p>
+<p>AI labs are private currency issuers. The currency is the token. The
+underlying asset is the <em>verifier substrate</em> — the human or
+software that decides whether AI work was done correctly. Token value
+behaves like nineteenth-century private banknote value: face inside the
+issuer’s perimeter, discounted with distance, vulnerable to runs when
+redemption fails. The rent on a token tracks the K-complexity of
+verification in the buyer’s domain, not model capability and not token
+volume.</p>
 <section id="the-token" class="level2">
 <h2>The token</h2>
-<p>A token is a claim on inference, redeemable for verified economic
-value. The verification happens through a substrate: a compiler accepts
-the code, a partner signs the brief, a clinician signs the chart, a
-regulator approves the filing.</p>
+<p>A token is a claim on inference, redeemable through a substrate: a
+compiler accepts the code, a partner signs the brief, a clinician signs
+the chart, a regulator approves the filing.</p>
 <p>Kolmogorov complexity of verification, <span
 class="math inline">\(K(\text{verify})\)</span>, is the length of the
-shortest program that maps outputs to yes-or-no judgments given the
-verifier’s information set.<a href="#fn4" class="footnote-ref"
-id="fnref4" role="doc-noteref"><sup>4</sup></a> For a compiler, <span
-class="math inline">\(K(\text{verify})\)</span> is small — language
-semantics plus a test harness. For a partner reviewing a brief, <span
-class="math inline">\(K(\text{verify})\)</span> is enormous — the
-assigned judge’s history, opposing counsel’s playbook, the client’s risk
-tolerance, the firm’s strategy. Most of it tacit.</p>
-<p>The rent on a token tracks <span
-class="math inline">\(K(\text{verify})\)</span>, not model capability.
-Where verifiers are cheap (code, formal math, schema-deterministic
-audit), the rent flips to whoever owns the compute. Where verifiers are
-humans, the rent stays on the signature. Tokens are derivative of
-verifiers.</p>
+shortest program that maps an output to a yes-or-no judgment given the
+verifier’s information set <span class="math inline">\(I_v\)</span>:<a
+href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a></p>
+<p><span class="math display">\[K(\text{verify} \mid t, I_v) \;=\;
+\min_p\, |p| \quad \text{s.t.} \quad U(p,\, y,\, t,\, I_v) =
+\mathbb{1}\!\left[y \models t\right].\]</span></p>
+<p>For a compiler, <span class="math inline">\(I_v\)</span> is language
+semantics plus a test harness — <span
+class="math inline">\(K(\text{verify})\)</span> is small. For a partner
+reviewing a brief, <span class="math inline">\(I_v\)</span> is the
+assigned judge’s record, opposing counsel’s playbook, the client’s risk
+tolerance, the firm’s strategy — <span
+class="math inline">\(K(\text{verify})\)</span> is enormous and mostly
+tacit. The rent on a token tracks <span
+class="math inline">\(K(\text{verify})\)</span>, not capability:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th><span class="math inline">\(K(\text{verify})\)</span></th>
+<th>Verifier</th>
+<th>Rent accrues to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small</td>
+<td>Compiler, test harness, schema</td>
+<td>Compute owner</td>
+</tr>
+<tr>
+<td>Medium</td>
+<td>Domain software, structured audit</td>
+<td>Substrate owner</td>
+</tr>
+<tr>
+<td>Large</td>
+<td>Credentialed human, signed + indemnified</td>
+<td>The signature</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="discount-by-distance" class="level2">
 <h2>Discount by distance</h2>
 <p>A token from Anthropic redeems at face inside Claude Code. The same
-token used in a third-party application without Anthropic’s vertical
-integration redeems at a discount — the buyer has to construct her own
-redemption infrastructure. The same token used in a generic domain
-without a productisable verifier doesn’t redeem at all.</p>
+token used in a third-party app without Anthropic’s vertical integration
+redeems at a discount; in a generic domain without a productisable
+verifier it doesn’t redeem at all.</p>
 <p>The pattern is nineteenth-century banknote economics.<a href="#fn5"
 class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> A
-note from a bank in Indiana traded at face inside the bank’s home
-county, at a discount in the next state, and as wallpaper across the
-Mississippi. Free Banking America (1837–1863) produced 800+ private
-currency issuers. The eventual resolution was the National Banking Acts
-of 1863–1864 — unified federal currency, taxes that killed state
-banknotes, federally chartered banks.</p>
-<p>Formally:</p>
-<p><span class="math display">\[V(d) = V_0 \cdot e^{-\lambda
-d}\]</span></p>
-<p>where <span class="math inline">\(d\)</span> is the buyer’s
-institutional distance from the lab’s perimeter and <span
-class="math inline">\(\lambda\)</span> is the lab-specific discount
-rate, set by perimeter investment. The lab’s strategic problem is to
-keep <span class="math inline">\(\lambda\)</span> low across the widest
-possible <span class="math inline">\(D\)</span>.<a href="#fn6"
-class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Two
-corner solutions: deepen the perimeter (vertical integration), or extend
-it (subsidised circulation).</p>
+note from an Indiana bank traded at face in its home county, at a
+discount in the next state, and as wallpaper across the Mississippi.
+Free Banking America (1837–1863) produced 800+ private currency issuers;
+the National Banking Acts of 1863–1864 unified the system. Formally:</p>
+<p><span class="math display">\[V(d) \;=\; V_0 \cdot e^{-\lambda
+d}.\]</span></p>
+<p><span class="math inline">\(d\)</span> is institutional distance from
+the lab’s perimeter and <span class="math inline">\(\lambda\)</span> is
+the lab-specific discount rate. The lab’s strategic problem is</p>
+<p><span class="math display">\[\min_{\lambda(\cdot),\, D}\; \int_0^{D}
+\lambda(d)\, \mathrm{d}d \quad \text{s.t.} \quad C(\lambda, D) \leq
+B,\]</span></p>
+<p>a perimeter-investment budget <span class="math inline">\(B\)</span>
+on cost surface <span class="math inline">\(C(\cdot)\)</span>.<a
+href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a> Two corner solutions: deepen (low
+<span class="math inline">\(\lambda\)</span>, narrow <span
+class="math inline">\(D\)</span>) or extend (moderate <span
+class="math inline">\(\lambda\)</span>, wide <span
+class="math inline">\(D\)</span>).</p>
+<figure class="diagram">
+<svg viewBox="0 0 360 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two redemption curves: Anthropic steep but high face inside a narrow perimeter; OpenAI shallow across a wide perimeter.">
+<defs> <style> .ax { stroke: var(–fg-muted, #5a5246); stroke-width: 1;
+fill: none; } .tick { stroke: var(–fg-muted, #5a5246); stroke-width: 1;
+} .a { stroke: var(–accent, #7a3b1e); stroke-width: 2; fill: none; } .o
+{ stroke: var(–link, #2a4f7a); stroke-width: 2; fill: none;
+stroke-dasharray: 5 3; } .lbl { font-family: var(–sans, “Source Sans
+3”), sans-serif; font-size: 10px; fill: var(–fg, #1a1611); } .lblmuted {
+font-family: var(–sans, “Source Sans 3”), sans-serif; font-size: 9px;
+fill: var(–fg-muted, #5a5246); } </style> </defs>
+<line class="ax" x1="40" y1="140" x2="340" y2="140"/>
+<line class="ax" x1="40" y1="20"  x2="40"  y2="140"/>
+<text class="lblmuted" x="38" y="18" text-anchor="end">V₀</text>
+<text class="lblmuted" x="40" y="155" text-anchor="middle">0</text>
+<text class="lbl"      x="190" y="165" text-anchor="middle">institutional
+distance d</text>
+<text class="lbl"      x="14"  y="80"  text-anchor="middle" transform="rotate(-90 14 80)">V(d)</text>
+<path class="a" d="M 40 25 Q 80 30 110 65 Q 140 110 170 138 L 200 140 L 340 140"/>
+<path class="o" d="M 40 55 Q 100 65 170 85 Q 240 105 310 122 L 340 128"/>
+<text class="lbl" x="115" y="55" fill="#7a3b1e">Anthropic —
+deepen</text> <text class="lbl" x="200" y="78" fill="#2a4f7a">OpenAI —
+extend</text> <line class="tick" x1="170" y1="138" x2="170" y2="143"/>
+<text class="lblmuted" x="170" y="155" text-anchor="middle">D_A</text>
+<line class="tick" x1="310" y1="125" x2="310" y2="130"/>
+<text class="lblmuted" x="310" y="155" text-anchor="middle">D_O</text>
+</svg>
+<figcaption>
+Redemption value vs. institutional distance. Anthropic minimises <span
+class="math inline">\(\lambda\)</span> inside a narrow perimeter; OpenAI
+accepts a higher <span class="math inline">\(\lambda\)</span> in
+exchange for wider <span class="math inline">\(D\)</span>.
+</figcaption>
+</figure>
 </section>
 <section id="two-strategies" class="level2">
 <h2>Two strategies</h2>
-<p>Anthropic runs perimeter deepening. Direct enterprise contracts in
-regulated verticals — clinical decision support, claims adjudication,
-regulatory affairs — account for roughly 80% of revenue. First-party
-harnesses (Claude Code, Coefficient) capture token volume inside the
-lab. The OAuth restriction on third-party harnesses pulls telemetry
-inside the perimeter. Compliance infrastructure supports buyers in
-regulated industries. The lab is becoming the vertical SaaS company in
-domains where the model is one component of a stack it owns end-to-end.
-The bet: <span class="math inline">\(K(\text{verify})\)</span> stays
-high; the residual rent accrues to substrate owners.</p>
-<p>OpenAI runs perimeter extension.<a href="#fn7" class="footnote-ref"
-id="fnref7" role="doc-noteref"><sup>7</sup></a> Multi-vendor supply
-agreements with Microsoft, Amazon, and Google flatten hyperscaler
-dependence into a many-counterparty asymmetry. A horizontal API business
-prioritises developer adoption over vertical depth. The $2M YC token
-offer buys equity in tomorrow’s app businesses paid in OpenAI’s own
-currency. The startups burn the tokens building products that route
-inference through OpenAI. The lab captures the equity upside
-<em>and</em> the metered revenue. The bet: <span
-class="math inline">\(K(\text{verify})\)</span> falls; volume across
-many small substrates dominates depth in any one.</p>
-<p>Both strategies are autarky. Each reduces exposure to external
-parties whose decisions could break the lab’s operations. The labs are
-not competing for the same customer. They are betting on opposite
-futures of the same parameter.</p>
+<p>Anthropic deepens. Direct enterprise contracts in regulated verticals
+— clinical decision support, claims adjudication, regulatory affairs —
+account for roughly 80% of revenue. First-party harnesses (Claude Code,
+Coefficient) capture token volume inside the lab. OAuth restrictions
+pull telemetry inside the perimeter. The bet: <span
+class="math inline">\(K(\text{verify})\)</span> stays high; residual
+rent accrues to substrate owners.</p>
+<p>OpenAI extends.<a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a> Multi-vendor supply with Microsoft,
+Amazon, Google flattens hyperscaler dependence. A horizontal API
+business prioritises developer adoption. The $2M YC token offer buys
+equity in tomorrow’s app businesses paid in OpenAI’s own currency. The
+bet: <span class="math inline">\(K(\text{verify})\)</span> falls; volume
+across many small substrates dominates depth in any one.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th><strong>Anthropic — deepen</strong></th>
+<th><strong>OpenAI — extend</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Perimeter</td>
+<td>narrow, high-investment</td>
+<td>wide, low-investment</td>
+</tr>
+<tr>
+<td>Revenue mix</td>
+<td>~80% enterprise verticals</td>
+<td>API + capacity reservations</td>
+</tr>
+<tr>
+<td>K(verify) bet</td>
+<td>stays high</td>
+<td>falls</td>
+</tr>
+<tr>
+<td>Token sink</td>
+<td>first-party harnesses</td>
+<td>third-party apps + YC equity</td>
+</tr>
+<tr>
+<td>Failure mode</td>
+<td>vertical gets disrupted</td>
+<td>volume base commoditises</td>
+</tr>
+</tbody>
+</table>
+<p>Both are autarky. The labs are not competing for the same customer.
+They are betting on opposite futures of the same parameter.</p>
 </section>
 <section id="bank-runs" class="level2">
 <h2>Bank runs</h2>
-<p>The Microsoft cancellation is a single-buyer redemption failure — a
-depositor who showed up for specie and was politely turned away. The
-bank survives the single withdrawal. The information about whether the
-bank could honour at face propagates. Other large enterprises run their
-own cost-benefit math against the same flat-rate subscription. Enough
-simultaneous cancellations and the lab faces a coordinated run.</p>
-<p>Stablecoin history is the modern training set.<a href="#fn8"
-class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>
-TerraUSD destroyed $45 billion in a week when its algorithmic peg
-failed. USDC depegged in March 2023 when Silicon Valley Bank failed.
-Tether’s reserves were 27.6% of issued tokens for two and a half years.
-The lesson: private currency without sufficient backing fails not
-gradually but suddenly, when buyer confidence cracks.</p>
-<p>Anthropic’s weekly rate caps and OpenAI’s priority-service contracts
-are tacit admissions that the per-token meter is not a stable medium of
-exchange. Both labs are converting their banknotes into bilateral
-capacity reservations — the retreat Free Banking-era banks made when
-they ran out of specie.</p>
+<p>Microsoft’s cancellation is a single-buyer redemption failure — a
+depositor turned away. The bank survives the withdrawal. Information
+about whether it could honour at face propagates. Other large
+enterprises run the same cost-benefit math. Enough simultaneous
+cancellations and the lab faces a coordinated run. Let <span
+class="math inline">\(R_b\)</span> be the cost to construct buyer <span
+class="math inline">\(b\)</span>’s redemption infrastructure and <span
+class="math inline">\(V_b\)</span> the realised per-token value; <span
+class="math inline">\(b\)</span> cancels when</p>
+<p><span class="math display">\[R_b \;&gt;\; V_b \;=\; V_0 \cdot
+e^{-\lambda d_b}.\]</span></p>
+<p>The threshold is endogenous in <span
+class="math inline">\(\lambda\)</span>. Weekly rate caps and
+priority-service contracts push pricing into bilateral capacity
+reservations — the retreat Free Banking-era banks made when they ran out
+of specie.<a href="#fn8" class="footnote-ref" id="fnref8"
+role="doc-noteref"><sup>8</sup></a></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Episode</th>
+<th>Backing</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TerraUSD (May 2022)</td>
+<td>algorithmic — none</td>
+<td>$45B destroyed, 1 week</td>
+</tr>
+<tr>
+<td>USDC (Mar 2023)</td>
+<td>full but SVB-exposed</td>
+<td>depeg, 2 days, restored</td>
+</tr>
+<tr>
+<td>Tether (2016–18)</td>
+<td>27.6% (NY AG settlement)</td>
+<td>survived; never fully audited</td>
+</tr>
+</tbody>
+</table>
+<p>Private currency without sufficient backing fails not gradually but
+suddenly, when buyer confidence cracks.</p>
 </section>
 <section id="resolution" class="level2">
 <h2>Resolution</h2>
-<p>Three paths.</p>
-<p><strong>State imposition.</strong> The federal government declares
-the inference economy strategic, imposes a regulated-issuer framework,
-perhaps absorbs the labs into a Manhattan-Project-style consortium.<a
-href="#fn9" class="footnote-ref" id="fnref9"
-role="doc-noteref"><sup>9</sup></a> Mechanism: the National Banking Acts
-of 1863–1864. Triggers: a visible bank-run event, geopolitical pressure,
-political will. Two of three are partially formed.</p>
-<p><strong>Serial failure.</strong> The British nineteenth-century
-banking arc. Smaller labs fail or merge into larger ones. Larger labs
-experience their own time-gap stress and compress to defense-contractor
-multiples. A stable oligopoly settles with smaller revenue bases than
-current equity valuations imply.</p>
-<p><strong>Multipolar fragmentation.</strong> The US lab system persists
-alongside Chinese, European, Indian, and Middle Eastern parallel
-systems. Token convertibility across borders becomes a regulated
-activity. The most powerful institutions are not the labs but the
-cross-border verifier-credentialing bodies — Underwriters Laboratories,
-the AICPA, Moody’s analogs in each jurisdiction.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Path</th>
+<th>Mechanism</th>
+<th>Analog</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>State imposition</strong></td>
+<td>Regulated-issuer framework; USG consortium plausible<a href="#fn9"
+class="footnote-ref" id="fnref9"
+role="doc-noteref"><sup>9</sup></a></td>
+<td>National Banking Acts 1863–64</td>
+<td>Visible run + geopolitics</td>
+</tr>
+<tr>
+<td><strong>Serial failure</strong></td>
+<td>Smaller labs fail or merge; survivors compress to defense-contractor
+multiples</td>
+<td>UK 19th-century banking</td>
+<td>Time-gap stress</td>
+</tr>
+<tr>
+<td><strong>Multipolar fragmentation</strong></td>
+<td>US, Chinese, EU, Indian, Gulf systems; cross-border
+verifier-credentialing the binding institution</td>
+<td>Pre-1914 gold-standard era</td>
+<td>Status quo extends</td>
+</tr>
+</tbody>
+</table>
 <p>Probability is roughly equal across the three on a five-year horizon.
 The realised outcome will be a combination.</p>
 </section>
 <section id="what-this-means" class="level2">
 <h2>What this means</h2>
-<p>Lab equity is priced on platform-software comparables. The realised
-revenue and margin look like cost-pass-through infrastructure. The
-implied multiple compression — from platform multiples to
-monetary-institution multiples — is the modal expected outcome, not a
-tail risk.</p>
-<p>The institutions that benefit are verifier-substrate owners.
-Credentialing bodies. Audit firms. Vertical software companies that own
-the substrate in their domain — Halter, Waymo, OpenEvidence, Sardine,
-Abridge. They trade at infrastructure multiples and they will earn them.
-Hardware and energy infrastructure benefits regardless of which
-resolution path obtains.</p>
+<p>Lab equity is priced on platform-software comparables. Realised
+revenue and margin look like cost-pass-through infrastructure. Multiple
+compression from platform to monetary-institution multiples is the modal
+outcome, not a tail risk.</p>
+<p>The institutions that benefit are verifier-substrate owners —
+credentialing bodies, audit firms, vertical software that owns the
+substrate in its domain (Halter, Waymo, OpenEvidence, Sardine, Abridge).
+Hardware and energy infrastructure benefits regardless of resolution
+path.</p>
 <p>The credentialed human at the bottom of the signature chain is the
-closest thing the AI cycle has produced to specie reserves. She holds
-value across every redemption scenario. No lab can capture her without
+closest thing the cycle has produced to specie reserves. She holds value
+across every redemption scenario; no lab can capture her without
 integrating into the substrate where her signature lives. The wage of
 the doctor, the lawyer, the engineer, the underwriter, the pilot rises
-in real terms over the next five years. The middle of the labour market
-— the analyst, the coordinator, the entry-level associate, the role
-whose function was to assemble inputs for someone else’s signature —
-compresses out of every column simultaneously. The political debate
-about AI and labour has been sighting the wrong tier.</p>
-<p>The cycle has been pricing the wrong substrate. The repricing comes
-either through state intervention, through consolidation, or through
-fragmentation. All three are visible in the current data.</p>
+in real terms over five years. The middle of the labour market — the
+analyst, the coordinator, the entry-level associate — compresses out of
+every column simultaneously. The political debate about AI and labour
+has been sighting the wrong tier.</p>
+<p>The cycle has been pricing the wrong substrate.</p>
 </section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
