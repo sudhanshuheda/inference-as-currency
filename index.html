@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="A monetary theory of the AI cycle: tokens as private currency, verifier substrates as underlying assets, and the institutional consequences of a private inference economy.">
-<title>Compile, or Sign</title>
+<title>Inference as Currency</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -352,7 +352,7 @@ section.footnotes a.footnote-back { color: var(--fg-faint); margin-left: 0.3em; 
 <header class="topbar">
   <a href="#" class="brand">Inference as Currency</a>
   <nav class="meta">
-    <span>10 min read · 7 citations</span>
+    <span>9 min read · 9 citations</span>
     <a href="thesis_3page.pdf" download>PDF</a>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
   </nav>
@@ -363,228 +363,205 @@ section.footnotes a.footnote-back { color: var(--fg-faint); margin-left: 0.3em; 
   <aside class="toc-wrap" aria-label="Table of contents">
     <div class="toc-label">Contents</div>
     <ol>
-<li><a href="#the-complement-game">The complement game</a></li>
-<li><a href="#walking-down-the-stack">Walking down the stack</a></li>
-<li><a href="#why-the-wave-stops-at-the-verifier">Why the wave stops at the verifier</a></li>
+<li><a href="#the-token">The token</a></li>
+<li><a href="#discount-by-distance">Discount by distance</a></li>
 <li><a href="#two-strategies">Two strategies</a></li>
 <li><a href="#bank-runs">Bank runs</a></li>
-<li><a href="#what-this-implies">What this implies</a></li>
+<li><a href="#resolution">Resolution</a></li>
+<li><a href="#what-this-means">What this means</a></li>
     </ol>
   </aside>
 
   <article class="content">
 
     <div class="title-block">
-      <h1>Compile, or Sign</h1>
-      <p class="subtitle">A short paper on the commoditization cascade and where it
-stops.</p>
+      <h1>Inference as Currency</h1>
+      <p class="subtitle">A monetary theory of the AI cycle, in three pages.</p>
       <div class="meta">
         <span>November 2026</span>
-        <span>2,180 words · 10 min</span>
-        <span>7 citations</span>
+        <span>1,887 words · 9 min</span>
+        <span>9 citations</span>
       </div>
     </div>
 
-<p>Microsoft cancelled internal Claude Code seats this November. The
-cost-benefit didn’t clear. The same month, Uber burned its entire 2026
-AI budget in four months. GitHub deprecated flat-rate Copilot. Anthropic
-moved to opaque weekly rate caps. OpenAI walked into a Y Combinator
-dinner and offered two million dollars in tokens for equity in every
-founder in the room.</p>
-<p>Inside the standard frame for AI — Snowflake-class businesses,
-Microsoft-class moats, the trillion-dollar narratives carried by Anjney
-Midha’s “gross underestimate” market sizing, Dario’s <em>Machines of
-Loving Grace</em>, and Dan Sundheim’s Netflix/Spotify-style defence of
-lab margins<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> — none of this should be happening.
-The buyer-side cancellations should be a buyer-education problem. The
-strategic asymmetry between Anthropic and OpenAI should be a duopoly
-differentiation play. The shift away from token meters should be a
-pricing experiment.</p>
-<p>It is none of those. It is the visible symptom of a single underlying
-dynamic: every layer of the AI stack is racing to commoditize the layer
-next to it, the cascade keeps hitting a higher floor than the bull case
-predicted, and the floor it cannot get past is not capability or capital
-but <em>verification</em>.</p>
-<section id="the-complement-game" class="level2">
-<h2>The complement game</h2>
-<p>Joel Spolsky wrote the strategy down a quarter-century ago.<a
-href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> Demand for a product rises when the
-price of its complement falls, so firms invest in cheapening their
-complements. Microsoft funded the PC clone industry because cheap
-hardware sold Windows. IBM supported Linux because cheap operating
-systems sold consulting. Every layer of the AI stack is running the same
-play right now.</p>
-<p>Hardware vendors push tooling that runs any model on any silicon —
-cheap models sell more silicon. Foundation labs subsidize first-party
-harnesses to capture token volume — cheap harnesses sell more tokens.
-Application companies pitch “replace the associate, replace the SDR,
-replace tier-one.” The worker the app replaces is the app’s
-complement.</p>
-<p>The strategy memos answer the question of <em>who is commoditizing
-whom</em>. They do not answer the question of <em>where the wave
-stops</em>. The naive picture — every floor gets cheaper until
-everything is free — is wrong. Each commoditization wave hits a
-bottleneck and dissipates. The bottleneck is the layer whose complement
-cannot be written down. The remainder of the essay walks down the stack
-to find it.</p>
-</section>
-<section id="walking-down-the-stack" class="level2">
-<h2>Walking down the stack</h2>
-<p><strong>Hardware</strong> takes a cost-pass-through tax. Real,
-durable, capped. NVIDIA and TSMC are taxing every layer above them. They
-will not become Microsoft-class businesses because hardware sells joules
-per FLOP, not outcomes.</p>
-<p><strong>Foundation labs</strong> appear to be the winners —
-eighty-percent gross margins, eight-figure enterprise contracts,
-valuations on platform-software comparables. But the margin is a
-selection artifact. Coase showed in 1972 that a monopolist of a durable
-good cannot extract the monopoly price; Board and Pycia rescued the
-result in 2014 by showing that buyers with an outside option self-select
-out, leaving the monopolist serving only the inelastic residual at full
-price.<a href="#fn3" class="footnote-ref" id="fnref3"
-role="doc-noteref"><sup>3</sup></a> Open-source weights are the outside
-option. The 80% gross margin is the signature of selection, not of moat.
-As OSS closes the capability gap, the inelastic tail shrinks. Pricing
-power survives; revenue does not.</p>
-<p><strong>Orchestration</strong> — agentic harnesses, planner-worker
-frameworks, eval schedulers — is structurally a tax. Recent empirical
-data has hub-spoke architectures (planner model decomposing, worker
-models executing, planner recombining) losing by a factor of four to
-letting models compete on the same task. The orchestration overhead is
-itself a full planner-model run; the market wins by retry; the labs
-absorb orchestration as a feature in their release notes. The category
-survives only when it bundles a verifier into the product.</p>
-<p><strong>Applications</strong> appear to win where the lab cannot. But
-the application that resells inference at retail — Cursor, Windsurf, the
-horizontal AI SaaS cohort — gets squeezed between the lab’s wholesale
-margin and the buyer’s outside option. The wrapper’s marginal value
-decays as the buyer consumes more inference. Smart apps that resell
-cognition make dumb businesses. The application companies that survive
-are not selling AI. They are selling a <em>verifier substrate</em> that
-happens to run AI inside it.</p>
-<p>Halter’s collars on the cattle. Waymo’s sensors on the road. Abridge
-in the medical encounter. OpenEvidence in the chart. Sardine’s loss data
-on the chargeback. Different industries, identical pattern: the rollup
-owns the substrate that produces the verification signal, owns the model
-that processes it, and bundles in the credentialed human signature that
-closes the loop. The right comparison for these businesses is Visa, the
-freight-rail consolidations of the 1880s, or the credit-card networks of
-the 1970s — capital-heavy, locally monopolistic, balance-sheet armoured.
-Not Snowflake.</p>
-</section>
-<section id="why-the-wave-stops-at-the-verifier" class="level2">
-<h2>Why the wave stops at the verifier</h2>
-<p>Why do these particular application companies win and not others?
-Because they own the verifier in their domain.</p>
-<p>The verifier is the cheapest party that can decide whether AI work
-was done correctly. For coding, the verifier is a compiler — cheap,
-deterministic, productisable, anyone can run it. For an investment memo,
-the verifier is the partner who reads it and signs. For a pediatric
-intake, the verifier is the clinician with seven years of training and a
-malpractice premium.</p>
-<p>Define the Kolmogorov complexity of verification, <span
-class="math inline">\(K(\text{verify})\)</span>, as the length of the
+<p>Microsoft cancelled its internal Claude Code seats this November. The
+cost-benefit math didn’t clear. Microsoft is the most-aligned buyer for
+token-priced AI services that exists — owns Azure, holds nineteen
+percent of OpenAI, sells more enterprise software than any other firm on
+earth. If Microsoft can’t make the math work, the buyer-side problem is
+deeper than the literature has admitted. The same month, Uber burned its
+entire 2026 AI budget in four months. GitHub deprecated flat-rate
+Copilot. Anthropic moved from a token meter to opaque weekly caps.
+OpenAI walked into a Y Combinator dinner and offered two million dollars
+in tokens for equity in every founder in the room.</p>
+<p>The bull case for AI runs through three credentialed voices that own
+the room. Anjney Midha, Anthropic’s earliest institutional investor,
+says the lab’s original $800B market sizing was “a gross
+underestimate.”<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> Dario Amodei’s <em>Machines of
+Loving Grace</em> projects trillion-dollar revenues by 2030 and 10%
+annual GDP growth in the developing world via “AI finance ministers and
+central bankers.”<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> Dan Sundheim at D1 Capital prices
+the labs on Netflix/Spotify comparables — durable margins, sticky
+personalisation, fixed-asset economics, the commoditisation thesis “more
+or less irrelevant.”<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> These are not unreasonable people.
+They have a coherent thesis. The coherent thesis predicts none of the
+November events above.</p>
+<p>The reason is that the platform-software comparables are wrong. AI
+labs are not Snowflake. They are not Microsoft pre-cloud. They are
+private currency issuers. The currency is the token. The underlying
+asset is the <em>verifier substrate</em> — the human or software that
+decides whether AI work was done correctly. Token value behaves like
+nineteenth-century private banknote value: face inside the issuer’s
+integrated perimeter, discounted with distance, vulnerable to bank runs
+when redemption fails. The rent on a token is set by the K-complexity of
+verification in the buyer’s domain — not by the technical capability of
+the model, not by the volume of tokens issued. The labs’ visible
+behaviour is the rational response of private banks to redemption stress
+on their notes.</p>
+<p>What follows is the thesis in six pieces: the token and the verifier,
+the discount-by-distance model, the strategic asymmetry between the two
+largest issuers, the bank-run dynamics already visible at single-buyer
+scale, the resolution paths, and what it implies for capital.</p>
+<section id="the-token" class="level2">
+<h2>The token</h2>
+<p>A token is a claim on inference, redeemable for verified economic
+value. The verification happens through a substrate: a compiler accepts
+the code, a partner signs the brief, a clinician signs the chart, a
+regulator approves the filing.</p>
+<p>Kolmogorov complexity of verification, <span
+class="math inline">\(K(\text{verify})\)</span>, is the length of the
 shortest program that maps outputs to yes-or-no judgments given the
 verifier’s information set.<a href="#fn4" class="footnote-ref"
 id="fnref4" role="doc-noteref"><sup>4</sup></a> For a compiler, <span
-class="math inline">\(K(\text{verify})\)</span> is small: language
+class="math inline">\(K(\text{verify})\)</span> is small — language
 semantics plus a test harness. For a partner reviewing a brief, <span
-class="math inline">\(K(\text{verify})\)</span> is enormous: the
+class="math inline">\(K(\text{verify})\)</span> is enormous — the
 assigned judge’s history, opposing counsel’s playbook, the client’s risk
 tolerance, the firm’s strategy. Most of it tacit.</p>
-<p>The central claim of the essay is one sentence:</p>
-<p><em>The rent on a task tracks <span
-class="math inline">\(K(\text{verify})\)</span> in the domain of
-redemption — not the K-complexity of the task itself, not the technical
-capability of the model.</em></p>
-<p>This is the answer to the cycle’s central puzzle. The strategy memos
-say “AI replaces low-K-complexity work” and stop. But the human at the
-bottom of the workflow keeps getting paid for what looks like trivial
-cognitive work. The pediatric intake takes a frontier model fifty
-milliseconds. The license that authorises a human to sign for it takes
-seven years of training and a board exam. The cognitive task got faster
-and cheaper. The signature did not.</p>
+<p>The rent on a token tracks <span
+class="math inline">\(K(\text{verify})\)</span>, not model capability.
+Where verifiers are cheap (code, formal math, schema-deterministic
+audit), the rent flips to whoever owns the compute. Where verifiers are
+humans, the rent stays on the signature. Tokens are derivative of
+verifiers.</p>
+</section>
+<section id="discount-by-distance" class="level2">
+<h2>Discount by distance</h2>
+<p>A token from Anthropic redeems at face inside Claude Code. The same
+token used in a third-party application without Anthropic’s vertical
+integration redeems at a discount — the buyer has to construct her own
+redemption infrastructure. The same token used in a generic domain
+without a productisable verifier doesn’t redeem at all.</p>
+<p>The pattern is nineteenth-century banknote economics.<a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> A
+note from a bank in Indiana traded at face inside the bank’s home
+county, at a discount in the next state, and as wallpaper across the
+Mississippi. Free Banking America (1837–1863) produced 800+ private
+currency issuers. The eventual resolution was the National Banking Acts
+of 1863–1864 — unified federal currency, taxes that killed state
+banknotes, federally chartered banks.</p>
+<p>Formally:</p>
+<p><span class="math display">\[V(d) = V_0 \cdot e^{-\lambda
+d}\]</span></p>
+<p>where <span class="math inline">\(d\)</span> is the buyer’s
+institutional distance from the lab’s perimeter and <span
+class="math inline">\(\lambda\)</span> is the lab-specific discount
+rate, set by perimeter investment. The lab’s strategic problem is to
+keep <span class="math inline">\(\lambda\)</span> low across the widest
+possible <span class="math inline">\(D\)</span>.<a href="#fn6"
+class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Two
+corner solutions: deepen the perimeter (vertical integration), or extend
+it (subsidised circulation).</p>
 </section>
 <section id="two-strategies" class="level2">
 <h2>Two strategies</h2>
-<p>The labs know this. Their visible behaviour is the response.</p>
-<p><strong>Anthropic</strong> is going vertical into regulated
-industries — clinical decision support, claims adjudication, regulatory
-affairs, structured-finance underwriting — because in those domains
-<span class="math inline">\(K(\text{verify})\)</span> stays high and the
-residual rent accrues to whoever owns the verifier substrate. Direct
-enterprise contracts account for ~80% of the lab’s revenue. First-party
-harnesses (Claude Code, Coefficient) pull token volume inside the lab.
-The OAuth restriction on third-party harnesses pulls telemetry inside
-the perimeter. The bet: <span
-class="math inline">\(K(\text{verify})\)</span> remains heterogeneous,
-the substrate stays scarce.</p>
-<p><strong>OpenAI</strong> is going horizontal — multi-vendor supply
+<p>Anthropic runs perimeter deepening. Direct enterprise contracts in
+regulated verticals — clinical decision support, claims adjudication,
+regulatory affairs — account for roughly 80% of revenue. First-party
+harnesses (Claude Code, Coefficient) capture token volume inside the
+lab. The OAuth restriction on third-party harnesses pulls telemetry
+inside the perimeter. Compliance infrastructure supports buyers in
+regulated industries. The lab is becoming the vertical SaaS company in
+domains where the model is one component of a stack it owns end-to-end.
+The bet: <span class="math inline">\(K(\text{verify})\)</span> stays
+high; the residual rent accrues to substrate owners.</p>
+<p>OpenAI runs perimeter extension.<a href="#fn7" class="footnote-ref"
+id="fnref7" role="doc-noteref"><sup>7</sup></a> Multi-vendor supply
 agreements with Microsoft, Amazon, and Google flatten hyperscaler
-dependence; the $2M YC token offer buys equity in tomorrow’s app
-businesses paid in OpenAI’s own currency; consumer products extend
-perimeter into consumer regions. The bet: <span
-class="math inline">\(K(\text{verify})\)</span> falls fast, the
-substrate productises across domains, volume across many small
-substrates dominates depth in any one.</p>
-<p>Two beliefs about the same parameter. Two corner solutions to the
-same optimisation. The labs are not competing for the same customer.
-They are betting on opposite futures of <span
-class="math inline">\(K(\text{verify})\)</span>.</p>
+dependence into a many-counterparty asymmetry. A horizontal API business
+prioritises developer adoption over vertical depth. The $2M YC token
+offer buys equity in tomorrow’s app businesses paid in OpenAI’s own
+currency. The startups burn the tokens building products that route
+inference through OpenAI. The lab captures the equity upside
+<em>and</em> the metered revenue. The bet: <span
+class="math inline">\(K(\text{verify})\)</span> falls; volume across
+many small substrates dominates depth in any one.</p>
+<p>Both strategies are autarky. Each reduces exposure to external
+parties whose decisions could break the lab’s operations. The labs are
+not competing for the same customer. They are betting on opposite
+futures of the same parameter.</p>
 </section>
 <section id="bank-runs" class="level2">
 <h2>Bank runs</h2>
-<p>The strategic stress is now visible at single-buyer scale. Microsoft
-cancelling Claude Code is the equivalent of a depositor at a Free
-Banking-era bank showing up for specie and being told the redemption
-doesn’t clear.<a href="#fn5" class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a> The bank survives the single
-withdrawal. The information about whether the bank could honour at face
-propagates. Other large enterprises run their own cost-benefit against
-the same flat-rate subscription. Stablecoin history is the modern
-training set: TerraUSD destroyed $45B in a week, USDC depegged in March
-2023, Tether’s reserves were 27.6% of issued tokens for two and a half
-years.<a href="#fn6" class="footnote-ref" id="fnref6"
-role="doc-noteref"><sup>6</sup></a> Private currencies without
-sufficient backing fail not gradually but suddenly, when buyer
-confidence cracks.</p>
+<p>The Microsoft cancellation is a single-buyer redemption failure — a
+depositor who showed up for specie and was politely turned away. The
+bank survives the single withdrawal. The information about whether the
+bank could honour at face propagates. Other large enterprises run their
+own cost-benefit math against the same flat-rate subscription. Enough
+simultaneous cancellations and the lab faces a coordinated run.</p>
+<p>Stablecoin history is the modern training set.<a href="#fn8"
+class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>
+TerraUSD destroyed $45 billion in a week when its algorithmic peg
+failed. USDC depegged in March 2023 when Silicon Valley Bank failed.
+Tether’s reserves were 27.6% of issued tokens for two and a half years.
+The lesson: private currency without sufficient backing fails not
+gradually but suddenly, when buyer confidence cracks.</p>
 <p>Anthropic’s weekly rate caps and OpenAI’s priority-service contracts
 are tacit admissions that the per-token meter is not a stable medium of
-exchange. The labs are converting their banknotes into bilateral
-capacity reservations — the retreat private banks made when they ran out
-of specie.</p>
-<p>Three resolution paths. State imposition (a National Banking Acts
-analog under which USG declares the inference economy strategic and
-absorbs the labs into a regulated-issuer framework).<a href="#fn7"
-class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>
-Serial failure (smaller labs absorbed, larger labs compressing to
-defence-contractor multiples). Multipolar fragmentation (US, Chinese,
-European parallel systems with different verifier-credentialing
-regimes). Probability is roughly equal across the three on a five-year
-horizon. The realised outcome will be a combination.</p>
+exchange. Both labs are converting their banknotes into bilateral
+capacity reservations — the retreat Free Banking-era banks made when
+they ran out of specie.</p>
 </section>
-<section id="what-this-implies" class="level2">
-<h2>What this implies</h2>
-<p>What the cycle has gotten wrong is the model class. Lab equity is
-priced on platform-software comparables. The realised revenue and cost
-structure look like cost-pass-through infrastructure. The implied
-multiple compression is the modal expected outcome, not a tail risk.</p>
-<p>The institutions that benefit are verifier-substrate owners:
-credentialing bodies, audit firms, vertical software companies that own
-the substrate in their domain. Underwriters Laboratories, the AICPA,
-Moody’s, and their international counterparts on the institutional side;
-Halter, Waymo, Abridge, OpenEvidence, Sardine on the cybernetic-rollup
-side. They trade at infrastructure multiples and they earn them. Compute
-and energy infrastructure benefits regardless of which resolution path
-obtains — the trillion-dollar cluster buildouts happen on every branch
-of the tree.</p>
-<p>The complement game has a quiet last move. Every layer in a stack
-races to commoditize its complement. The layer that survives is the one
-whose complement is structurally un-commoditizable. Hardware survives
-because joules don’t compress. Humans at the edge survive because the
-meter has to live on a signature, and signatures live on people.</p>
+<section id="resolution" class="level2">
+<h2>Resolution</h2>
+<p>Three paths.</p>
+<p><strong>State imposition.</strong> The federal government declares
+the inference economy strategic, imposes a regulated-issuer framework,
+perhaps absorbs the labs into a Manhattan-Project-style consortium.<a
+href="#fn9" class="footnote-ref" id="fnref9"
+role="doc-noteref"><sup>9</sup></a> Mechanism: the National Banking Acts
+of 1863–1864. Triggers: a visible bank-run event, geopolitical pressure,
+political will. Two of three are partially formed.</p>
+<p><strong>Serial failure.</strong> The British nineteenth-century
+banking arc. Smaller labs fail or merge into larger ones. Larger labs
+experience their own time-gap stress and compress to defense-contractor
+multiples. A stable oligopoly settles with smaller revenue bases than
+current equity valuations imply.</p>
+<p><strong>Multipolar fragmentation.</strong> The US lab system persists
+alongside Chinese, European, Indian, and Middle Eastern parallel
+systems. Token convertibility across borders becomes a regulated
+activity. The most powerful institutions are not the labs but the
+cross-border verifier-credentialing bodies — Underwriters Laboratories,
+the AICPA, Moody’s analogs in each jurisdiction.</p>
+<p>Probability is roughly equal across the three on a five-year horizon.
+The realised outcome will be a combination.</p>
+</section>
+<section id="what-this-means" class="level2">
+<h2>What this means</h2>
+<p>Lab equity is priced on platform-software comparables. The realised
+revenue and margin look like cost-pass-through infrastructure. The
+implied multiple compression — from platform multiples to
+monetary-institution multiples — is the modal expected outcome, not a
+tail risk.</p>
+<p>The institutions that benefit are verifier-substrate owners.
+Credentialing bodies. Audit firms. Vertical software companies that own
+the substrate in their domain — Halter, Waymo, OpenEvidence, Sardine,
+Abridge. They trade at infrastructure multiples and they will earn them.
+Hardware and energy infrastructure benefits regardless of which
+resolution path obtains.</p>
 <p>The credentialed human at the bottom of the signature chain is the
 closest thing the AI cycle has produced to specie reserves. She holds
 value across every redemption scenario. No lab can capture her without
@@ -596,7 +573,7 @@ whose function was to assemble inputs for someone else’s signature —
 compresses out of every column simultaneously. The political debate
 about AI and labour has been sighting the wrong tier.</p>
 <p>The cycle has been pricing the wrong substrate. The repricing comes
-through state intervention, through consolidation, or through
+either through state intervention, through consolidation, or through
 fragmentation. All three are visible in the current data.</p>
 </section>
 </section>
@@ -610,34 +587,25 @@ working sessions for our first fundraise we needed a coherent view of
 our market size and arrived at an answer that felt reasonable:
 ~$800B/year as Andrej has discovered, that was a gross underestimate” —
 <a href="https://x.com/AnjneyMidha/status/2004687150957429002">X.com,
-Oct 2025</a>. Dwarkesh Patel: founders and early investors of frontier
-labs will “own a galaxy.” Dario Amodei, <a
+Oct 2025</a>. Dwarkesh Patel adds that founders and early investors of
+frontier labs will “own a galaxy.”<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Dario Amodei, <a
 href="https://www.darioamodei.com/essay/machines-of-loving-grace">“Machines
-of Loving Grace”</a> (Oct 2024): trillion-dollar revenues by 2030, 20%
-annual GDP growth in the developing world, AI-replicated East
-Asian-style ~10% growth. Dan Sundheim (D1 Capital), <a
-href="https://pod.wave.co/podcast/invest-like-the-best-with-patrick-oshaughnessy-48a998b1-8bc3-4e91-9c00-6d2f4d646fdd/">Invest
-Like the Best Ep. 460</a> (Feb 2026): LLM businesses combine
-Netflix-style fixed-asset economics with Spotify-style personalisation
-stickiness; the commoditisation thesis “is more or less irrelevant.”<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Joel Spolsky, <a
-href="https://www.joelonsoftware.com/2002/06/12/strategy-letter-v/">“Strategy
-Letter V: Commoditize Your Complement”</a>, joelonsoftware.com (June
-2002). The framing borrowed from undergraduate microeconomics: “Demand
-for a product increases when the prices of its complements decrease.”
-Hamilton Helmer, <em>Seven Powers</em> (2016), on counter-positioning:
-the labs’ token meter is counter-positioned against the SaaS flat-rate
-model, and SaaS cannot retrofit per-token pricing without breaking its
-customer relationship.<a href="#fnref2" class="footnote-back"
+of Loving Grace”</a> (Oct 2024). Targets 20% annual GDP growth in the
+developing world, with AI replicating East Asian-style ~10% growth via
+“AI finance ministers and central bankers.” Trillion-dollar revenues by
+2030 are presented as plausible under the bull-case capability
+trajectory.<a href="#fnref2" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Ronald Coase, “Durability and Monopoly,” <em>Journal of
-Law and Economics</em> 15 (1972). Board &amp; Pycia, <a
-href="https://www.aeaweb.org/articles?id=10.1257/aer.104.2.656">“Outside
-Options and the Failure of the Coase Conjecture,”</a> <em>American
-Economic Review</em> 104:2 (Feb 2014). The labs’ eighty-percent gross
-margins are the Board–Pycia selection signature, not a moat.<a
-href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Dan Sundheim, D1 Capital, <a
+href="https://pod.wave.co/podcast/invest-like-the-best-with-patrick-oshaughnessy-48a998b1-8bc3-4e91-9c00-6d2f4d646fdd/">Invest
+Like the Best Ep. 460</a> (Feb 2026): LLM businesses combine fixed-asset
+economics (Netflix content) with personalisation-driven stickiness
+(Spotify playlists); gross margins are durable; the commoditisation
+thesis “is more or less irrelevant.” The strongest published counter to
+the framing here.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>The K(verify) construction extends conditional
 Kolmogorov complexity (Li &amp; Vitányi, <em>An Introduction to
 Kolmogorov Complexity</em>, 4th ed., Springer 2019) using a verifier’s
@@ -646,33 +614,43 @@ machinery: Akerlof, “Lemons” (<em>QJE</em> 1970); Holmström, “Moral
 Hazard and Observability” (<em>Bell J. Econ.</em> 1979); Bergemann &amp;
 Bonatti, “Markets for Information” (<em>Annu. Rev. Econ.</em> 2019).<a
 href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>American Free Banking Era (1837–1863): state-chartered
-commercial banks issued their own banknotes, redeemable on demand for
-specie. Notes circulated at face inside the issuing bank’s home county
-and discounted with distance. The resolution was the National Banking
-Acts of 1863–1864 — unified federal currency, taxes that killed state
-banknotes, federally chartered banks. See Hugh Rockoff, “The Free
-Banking Era: A Reexamination,” <em>Journal of Money, Credit and
-Banking</em> 6:2 (1974), pp. 141–167; Calomiris &amp; Haber, <em>Fragile
-by Design</em> (Princeton, 2014).<a href="#fnref5" class="footnote-back"
+<li id="fn5"><p>Hugh Rockoff, “The Free Banking Era: A Reexamination,”
+<em>Journal of Money, Credit and Banking</em> 6:2 (1974), pp. 141–167.
+For the political economy of the resolution, Calomiris &amp; Haber,
+<em>Fragile by Design</em> (Princeton, 2014). The discount-by-distance
+pattern was geometric in observable broker quotes by 1850.<a
+href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Ronald Coase, “Durability and Monopoly,” <em>J. Law
+&amp; Econ.</em> 15 (1972). Board &amp; Pycia, <a
+href="https://www.aeaweb.org/articles?id=10.1257/aer.104.2.656">“Outside
+Options and the Failure of the Coase Conjecture,”</a> <em>American
+Economic Review</em> 104:2 (Feb 2014). The labs’ eighty-percent gross
+margins are the Board–Pycia selection signature, not a moat.<a
+href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Joel Spolsky, <a
+href="https://www.joelonsoftware.com/2002/06/12/strategy-letter-v/">“Strategy
+Letter V: Commoditize Your Complement,”</a> joelonsoftware.com (June
+2002). Each layer’s complement is what it tries to cheapen. Hamilton
+Helmer, <em>Seven Powers</em> (2016), on counter-positioning: the labs’
+token meter is counter-positioned against the SaaS flat-rate model, and
+SaaS cannot retrofit per-token pricing without breaking customer
+relationships.<a href="#fnref7" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>TerraUSD / LUNA collapse, May 2022 — algorithmic peg
+<li id="fn8"><p>TerraUSD / LUNA collapse, May 2022 — algorithmic peg
 failed; ~$45B value destroyed in a week. USDC depeg, March 2023 —
-Silicon Valley Bank held Circle’s reserves and failed. Tether reserve
-fraction during 2016–18 was 27.6% per the NY Attorney General’s 2021
-settlement. Three independent demonstrations that private currencies
-without sufficient backing fail discontinuously when confidence
-cracks.<a href="#fnref6" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>Leopold Aschenbrenner, <a
+Silicon Valley Bank held Circle’s reserves. Tether reserve fraction
+during 2016–18 was 27.6% per the NY Attorney General’s 2021 settlement.
+Three independent demonstrations that private currencies without
+sufficient backing fail discontinuously when confidence cracks.<a
+href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Leopold Aschenbrenner, <a
 href="https://situational-awareness.ai/">“Situational Awareness: The
-Decade Ahead”</a> (June 2024), particularly the <a
-href="https://situational-awareness.ai/the-project/">“The Project”</a>
-section: predicts USG absorption of frontier labs into a
-Manhattan-Project-style consortium by 2027–28 under Lockheed/Boeing-type
-defence-contracting arrangements, triggered by capability advancement
-and US-China geopolitical pressure.<a href="#fnref7"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+Decade Ahead”</a> (June 2024), section <a
+href="https://situational-awareness.ai/the-project/">“The Project”</a>.
+Predicts USG absorption of frontier labs into a Manhattan-Project-style
+consortium by 2027–28 under Lockheed/Boeing-type defense contracting
+arrangements, triggered by capability + geopolitical pressure.<a
+href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 
   </article>
