@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A monetary theory of the AI cycle: tokens as private currency, verifier substrates as underlying assets, and the institutional consequences of a private inference economy.">
+<title>Inference as Currency</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+  },
+  svg: { fontCache: 'global' },
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+<style>
+:root {
+  --bg: #fbf8f1;
+  --bg-alt: #f4ede0;
+  --fg: #1a1611;
+  --fg-muted: #5a5246;
+  --fg-faint: #8a8270;
+  --accent: #7a3b1e;
+  --accent-soft: #c08868;
+  --border: #d8cdb5;
+  --link: #5a2b14;
+  --link-hover: #7a3b1e;
+  --sidenote-bg: #f0e8d4;
+  --code-bg: #efe7d2;
+  --max-content: 34rem;
+  --left-toc-width: 11rem;
+  --sidenote-width: 14rem;
+  --gutter: 2.2rem;
+  --serif: "Source Serif 4", "Source Serif Pro", "Charter", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+[data-theme="dark"] {
+  --bg: #1a1611;
+  --bg-alt: #25201a;
+  --fg: #ece5d2;
+  --fg-muted: #b0a890;
+  --fg-faint: #7a7260;
+  --accent: #d0a878;
+  --accent-soft: #9a7048;
+  --border: #3a3328;
+  --link: #d8b890;
+  --link-hover: #ecd0a8;
+  --sidenote-bg: #25201a;
+  --code-bg: #2a241c;
+}
+* { box-sizing: border-box; }
+html {
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--fg);
+  background: var(--bg);
+  margin: 0;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga", "onum", "calt";
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+}
+.topbar .brand {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  text-decoration: none;
+}
+.topbar .meta {
+  display: flex;
+  gap: 1.3rem;
+  align-items: center;
+}
+.topbar .meta a, .topbar .meta button {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.topbar .meta a:hover, .topbar .meta button:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent-soft);
+}
+.theme-toggle { font-size: 1.05rem !important; line-height: 1; }
+
+.layout {
+  display: grid;
+  grid-template-columns: var(--left-toc-width) minmax(0, 1fr) var(--sidenote-width);
+  gap: var(--gutter);
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem 2rem;
+  align-items: start;
+}
+
+.toc-wrap {
+  position: sticky;
+  top: 4.5rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  padding-right: 0.5rem;
+  border-right: 1px solid var(--border);
+}
+.toc-wrap .toc-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-faint);
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+.toc-wrap ol { list-style: none; padding: 0; margin: 0; }
+.toc-wrap li { margin-bottom: 0.35rem; line-height: 1.35; }
+.toc-wrap a {
+  color: var(--fg-muted);
+  text-decoration: none;
+  display: block;
+  padding: 0.1rem 0 0.1rem 0.6rem;
+  margin-left: -0.6rem;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.toc-wrap a:hover { color: var(--accent); border-left-color: var(--accent-soft); }
+.toc-wrap a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
+
+.content {
+  max-width: var(--max-content);
+  font-feature-settings: "kern", "liga", "onum";
+}
+
+.title-block {
+  margin-bottom: 2.2rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid var(--border);
+}
+.title-block h1 {
+  font-family: var(--sans);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.5rem 0;
+  color: var(--fg);
+}
+.title-block .subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.06rem;
+  color: var(--fg-muted);
+  margin: 0;
+  font-weight: 400;
+}
+.title-block .meta {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--fg-faint);
+  margin-top: 1rem;
+  display: flex;
+  gap: 1.3rem;
+  letter-spacing: 0.02em;
+}
+
+.content h2 {
+  font-family: var(--sans);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 2.2rem 0 0.7rem 0;
+  letter-spacing: -0.005em;
+  color: var(--fg);
+}
+.content > p:first-of-type::first-letter {
+  font-family: var(--serif);
+  font-size: 3.6rem;
+  font-weight: 600;
+  float: left;
+  line-height: 0.85;
+  padding: 0.35rem 0.5rem 0 0;
+  color: var(--accent);
+}
+.content p {
+  margin: 0 0 0.85rem 0;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+.content strong { font-weight: 600; color: var(--fg); }
+.content em { font-style: italic; }
+.content code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+  color: var(--accent);
+}
+.content a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+.content a:hover { color: var(--link-hover); text-decoration-thickness: 1.5px; }
+.content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem auto;
+  width: 50%;
+}
+.content strong em, .content em strong { color: var(--accent); }
+
+mjx-container { font-size: 100% !important; }
+mjx-container[display="true"] {
+  margin: 1rem 0 !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Footnote refs as small numbered superscripts in body */
+.content sup { font-size: 0.75em; line-height: 0; }
+.content a.footnote-ref {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+  font-family: var(--sans);
+}
+.content a.footnote-ref:hover { color: var(--link-hover); }
+.content a.footnote-ref::before { content: "["; }
+.content a.footnote-ref::after { content: "]"; }
+.content a.footnote-ref sup { font-size: 0.95em; }
+
+/* Hide pandoc's footnote section on wide screens — sidenotes do the job */
+section.footnotes {
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.86rem;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+section.footnotes hr { display: none; }
+section.footnotes ol { padding-left: 1.2rem; }
+section.footnotes li { margin: 0.55rem 0; }
+section.footnotes a { color: var(--link); }
+section.footnotes a.footnote-back { color: var(--fg-faint); margin-left: 0.3em; text-decoration: none; }
+
+@media (min-width: 1101px) {
+  section.footnotes { display: none; }
+}
+
+/* Right-rail sidenotes */
+.sidenote-rail {
+  position: relative;
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  line-height: 1.42;
+  color: var(--fg-muted);
+  padding-left: 0.7rem;
+  border-left: 1px solid var(--border);
+  min-height: 100vh;
+}
+.sidenote {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding-right: 0.2rem;
+}
+.sidenote-num {
+  color: var(--accent);
+  font-weight: 700;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  margin-right: 0.3em;
+}
+.sidenote a { color: var(--link); text-decoration: underline; }
+.sidenote a:hover { color: var(--link-hover); }
+.sidenote em { font-style: italic; }
+.sidenote strong { font-weight: 600; color: var(--fg); }
+
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 1.5rem 1.2rem 4rem;
+    gap: 1.5rem;
+  }
+  .toc-wrap, .sidenote-rail { display: none; }
+  .content { max-width: 100%; }
+  html { font-size: 17px; }
+  .title-block h1 { font-size: 1.8rem; }
+}
+@media (max-width: 560px) {
+  html { font-size: 16px; }
+  .layout { padding: 1rem 1rem 3rem; }
+  .title-block h1 { font-size: 1.5rem; }
+  .content p { text-align: left; }
+}
+
+.footer {
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--fg-faint);
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--border);
+  margin-top: 4rem;
+}
+
+::selection { background: var(--accent-soft); color: var(--bg); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-soft); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="#" class="brand">Inference as Currency</a>
+  <nav class="meta">
+    <span>8 min read · 9 citations</span>
+    <a href="thesis_3page.pdf" download>PDF</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
+  </nav>
+</header>
+
+<div class="layout">
+
+  <aside class="toc-wrap" aria-label="Table of contents">
+    <div class="toc-label">Contents</div>
+    <ol>
+<li><a href="#the-token">The token</a></li>
+<li><a href="#discount-by-distance">Discount by distance</a></li>
+<li><a href="#two-strategies">Two strategies</a></li>
+<li><a href="#bank-runs">Bank runs</a></li>
+<li><a href="#resolution">Resolution</a></li>
+<li><a href="#what-this-means">What this means</a></li>
+    </ol>
+  </aside>
+
+  <article class="content">
+
+    <div class="title-block">
+      <h1>Inference as Currency</h1>
+      <p class="subtitle">A monetary theory of the AI cycle, in three pages.</p>
+      <div class="meta">
+        <span>November 2026</span>
+        <span>1,838 words · 8 min</span>
+        <span>9 citations</span>
+      </div>
+    </div>
+
+<p>The standard frame for AI is platform software: Snowflake-class
+businesses, Microsoft-class moats, network effects, switching costs.
+Inside that frame, the trillion-dollar narrative is intact — Anjney
+Midha’s original $800B market-size estimate for Anthropic has been
+called “a gross underestimate” by the people who use it,<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Dario Amodei’s <em>Machines of Loving Grace</em> essay projects
+trillion-dollar revenues by 2030 with 20% annual GDP growth in the
+developing world,<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> and Dan Sundheim at D1 Capital
+argues the labs’ high gross margins are durable through the same
+Netflix/Spotify logic that priced the previous decade’s platform
+winners.<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></p>
+<p>The empirics do not fit.</p>
+<p>Microsoft cancelled its internal Claude Code seats this November. The
+cost-benefit didn’t clear. The same month, Uber burned its entire 2026
+AI budget in four months. GitHub deprecated flat-rate Copilot. Anthropic
+moved to opaque weekly rate caps because the per-token meter could not
+contain real usage. OpenAI walked into a Y Combinator dinner and offered
+two million dollars in tokens for equity in every founder in the room.
+Under the platform-software frame, none of this should be happening. The
+buyer-side cancellations are not a buyer-education problem. The
+strategic asymmetry between Anthropic and OpenAI is not a duopoly
+differentiation play. The cost surface underneath Anthropic’s $43B
+gross-reported revenue is not a software cost surface.</p>
+<p>The right frame is monetary economics. AI labs are private currency
+issuers. The currency is the token. The underlying asset is the
+<em>verifier substrate</em> — the human or software that decides whether
+AI work was done correctly. The rent on a token is set by the
+K-complexity of verification in the buyer’s domain, not by the technical
+capability of the model that produced the inference. The labs’ visible
+behaviour is the rational response of private banks to redemption stress
+on their notes.</p>
+<p>What follows is the thesis in seven pieces: the token, the
+discount-by-distance model, the strategic asymmetry between the two
+largest issuers, the bank-run dynamics now visible at single-buyer
+scale, the resolution paths, and what it implies for capital.</p>
+<section id="the-token" class="level2">
+<h2>The token</h2>
+<p>A token is a claim on inference, redeemable for verified economic
+value. The verification happens through a substrate: a compiler accepts
+the code, a partner signs the brief, a clinician signs the chart, a
+regulator approves the filing.</p>
+<p>Kolmogorov complexity of verification, <span
+class="math inline">\(K(\text{verify})\)</span>, is the length of the
+shortest program that maps outputs to yes-or-no judgments given the
+verifier’s information set.<a href="#fn4" class="footnote-ref"
+id="fnref4" role="doc-noteref"><sup>4</sup></a> For a compiler, <span
+class="math inline">\(K(\text{verify})\)</span> is small — language
+semantics plus a test harness. For a partner reviewing a brief, <span
+class="math inline">\(K(\text{verify})\)</span> is enormous — the
+assigned judge’s history, opposing counsel’s playbook, the client’s risk
+tolerance, the firm’s strategy. Most of it tacit.</p>
+<p>The rent on a token tracks <span
+class="math inline">\(K(\text{verify})\)</span>, not model capability.
+Where verifiers are cheap (code, formal math, schema-deterministic
+audit), the rent flips to whoever owns the compute. Where verifiers are
+humans, the rent stays on the signature. Tokens are derivative of
+verifiers.</p>
+</section>
+<section id="discount-by-distance" class="level2">
+<h2>Discount by distance</h2>
+<p>A token from Anthropic redeems at face inside Claude Code. The same
+token used in a third-party application without Anthropic’s vertical
+integration redeems at a discount — the buyer has to construct her own
+redemption infrastructure. The same token used in a generic domain
+without a productisable verifier doesn’t redeem at all.</p>
+<p>The pattern is nineteenth-century banknote economics.<a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> A
+note from a bank in Indiana traded at face inside the bank’s home
+county, at a discount in the next state, and as wallpaper across the
+Mississippi. Free Banking America (1837–1863) produced 800+ private
+currency issuers. The eventual resolution was the National Banking Acts
+— unified federal currency, taxes that killed state banknotes, federally
+chartered banks.</p>
+<p>Formally:</p>
+<p><span class="math display">\[V(d) = V_0 \cdot e^{-\lambda
+d}\]</span></p>
+<p>where <span class="math inline">\(d\)</span> is the buyer’s
+institutional distance from the lab’s perimeter and <span
+class="math inline">\(\lambda\)</span> is the lab-specific discount
+rate, set by perimeter investment. The lab’s strategic problem is to
+keep <span class="math inline">\(\lambda\)</span> low across the widest
+possible <span class="math inline">\(D\)</span>.<a href="#fn6"
+class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Two
+corner solutions: deepen the perimeter (vertical integration), or extend
+it (subsidised circulation).</p>
+</section>
+<section id="two-strategies" class="level2">
+<h2>Two strategies</h2>
+<p>Anthropic runs perimeter deepening. Direct enterprise contracts in
+regulated verticals — clinical decision support, claims adjudication,
+regulatory affairs — account for roughly 80% of revenue. First-party
+harnesses (Claude Code, Coefficient) capture token volume inside the
+lab. The OAuth restriction on third-party harnesses pulls telemetry
+inside the perimeter. Compliance infrastructure supports buyers in
+regulated industries. The lab is becoming the vertical SaaS company in
+domains where the model is one component of a stack it owns end-to-end.
+The bet: <span class="math inline">\(K(\text{verify})\)</span> stays
+high; the residual rent accrues to substrate owners.</p>
+<p>OpenAI runs perimeter extension.<a href="#fn7" class="footnote-ref"
+id="fnref7" role="doc-noteref"><sup>7</sup></a> Multi-vendor supply
+agreements with Microsoft, Amazon, and Google flatten hyperscaler
+dependence into a many-counterparty asymmetry. A horizontal API business
+prioritises developer adoption over vertical depth. The $2M YC token
+offer buys equity in tomorrow’s app businesses paid in OpenAI’s own
+currency. The startups burn the tokens building products that route
+inference through OpenAI. The lab captures the equity upside
+<em>and</em> the metered revenue. The bet: <span
+class="math inline">\(K(\text{verify})\)</span> falls; volume across
+many small substrates dominates depth in any one.</p>
+<p>Both strategies are autarky. Each reduces exposure to external
+parties whose decisions could break the lab’s operations. The labs are
+not competing for the same customer. They are betting on opposite
+futures of the same parameter.</p>
+</section>
+<section id="bank-runs" class="level2">
+<h2>Bank runs</h2>
+<p>The Microsoft cancellation is a single-buyer redemption failure — a
+depositor who showed up for specie and was politely turned away. The
+bank survives the single withdrawal. The information about whether the
+bank could honour at face propagates. Other large enterprises run their
+own cost-benefit math against the same flat-rate subscription. Enough
+simultaneous cancellations and the lab faces a coordinated run.</p>
+<p>Stablecoin history is the modern training set.<a href="#fn8"
+class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>
+TerraUSD destroyed $45 billion in a week when its algorithmic peg
+failed. USDC depegged in March 2023 when Silicon Valley Bank failed.
+Tether’s reserves were 27.6% of issued tokens for two and a half years.
+The lesson: private currency without sufficient backing fails not
+gradually but suddenly, when buyer confidence cracks.</p>
+<p>Anthropic’s weekly rate caps and OpenAI’s priority-service contracts
+are tacit admissions that the per-token meter is not a stable medium of
+exchange. Both labs are converting their banknotes into bilateral
+capacity reservations — the retreat Free Banking-era banks made when
+they ran out of specie.</p>
+</section>
+<section id="resolution" class="level2">
+<h2>Resolution</h2>
+<p>Three paths.</p>
+<p><strong>State imposition.</strong> The federal government declares
+the inference economy strategic, imposes a regulated-issuer framework,
+perhaps absorbs the labs into a Manhattan-Project-style consortium.<a
+href="#fn9" class="footnote-ref" id="fnref9"
+role="doc-noteref"><sup>9</sup></a> Mechanism: the National Banking Acts
+of 1863–1864. Triggers: a visible bank-run event, geopolitical pressure,
+political will. Two of three are partially formed.</p>
+<p><strong>Serial failure.</strong> The British nineteenth-century
+banking arc. Smaller labs fail or merge into larger ones. Larger labs
+experience their own time-gap stress and compress to defense-contractor
+multiples. A stable oligopoly settles with smaller revenue bases than
+current equity valuations imply.</p>
+<p><strong>Multipolar fragmentation.</strong> The US lab system persists
+alongside Chinese, European, Indian, and Middle Eastern parallel
+systems. Token convertibility across borders becomes a regulated
+activity. The most powerful institutions are not the labs but the
+cross-border verifier-credentialing bodies — Underwriters Laboratories,
+the AICPA, Moody’s analogs in each jurisdiction.</p>
+<p>Probability is roughly equal across the three on a five-year horizon.
+The realised outcome will be a combination.</p>
+</section>
+<section id="what-this-means" class="level2">
+<h2>What this means</h2>
+<p>Lab equity is priced on platform-software comparables. The realised
+revenue and margin look like cost-pass-through infrastructure. The
+implied multiple compression — from platform multiples to
+monetary-institution multiples — is the modal expected outcome, not a
+tail risk.</p>
+<p>The institutions that benefit are verifier-substrate owners.
+Credentialing bodies. Audit firms. Vertical software companies that own
+the substrate in their domain — Halter, Waymo, OpenEvidence, Sardine,
+Abridge. They trade at infrastructure multiples and they will earn them.
+Hardware and energy infrastructure benefits regardless of which
+resolution path obtains.</p>
+<p>The credentialed human at the bottom of the signature chain is the
+closest thing the AI cycle has produced to specie reserves. She holds
+value across every redemption scenario. No lab can capture her without
+integrating into the substrate where her signature lives. The wage of
+the doctor, the lawyer, the engineer, the underwriter, the pilot rises
+in real terms over the next five years. The middle of the labour market
+— the analyst, the coordinator, the entry-level associate, the role
+whose function was to assemble inputs for someone else’s signature —
+compresses out of every column simultaneously. The political debate
+about AI and labour has been sighting the wrong tier.</p>
+<p>The cycle has been pricing the wrong substrate. The repricing comes
+either through state intervention, through consolidation, or through
+fragmentation. All three are visible in the current data.</p>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Anjney Midha (Anthropic seed investor, ex-a16z): “in the
+early days, a couple Anthropic cofounders and I started doing weekly
+working sessions for our first fundraise we needed a coherent view of
+our market size and arrived at an answer that felt reasonable:
+~$800B/year as Andrej has discovered, that was a gross underestimate” —
+<a href="https://x.com/AnjneyMidha/status/2004687150957429002">X.com,
+Oct 2025</a>. Dwarkesh Patel: founders and early investors of frontier
+labs will “own a galaxy.”<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Dario Amodei, <a
+href="https://www.darioamodei.com/essay/machines-of-loving-grace">“Machines
+of Loving Grace”</a> (Oct 2024). Targets 20% annual GDP growth in the
+developing world, with AI replicating East Asian-style ~10% growth via
+“AI finance ministers and central bankers.” Trillion-dollar revenues by
+2030 are presented as plausible under the bull-case capability
+trajectory.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Dan Sundheim, D1 Capital, <a
+href="https://pod.wave.co/podcast/invest-like-the-best-with-patrick-oshaughnessy-48a998b1-8bc3-4e91-9c00-6d2f4d646fdd/">Invest
+Like the Best Ep. 460</a> (Feb 2026): LLM businesses combine fixed-asset
+economics (Netflix content) with personalisation-driven stickiness
+(Spotify playlists); gross margins are durable; the commoditisation
+thesis “is more or less irrelevant.” The strongest published counter to
+the framing here.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The K(verify) construction extends conditional
+Kolmogorov complexity (Li &amp; Vitányi, <em>An Introduction to
+Kolmogorov Complexity</em>, 4th ed., Springer 2019) using a verifier’s
+tacit information set as the conditioning variable. Underlying economic
+machinery: Akerlof, “Lemons” (<em>QJE</em> 1970); Holmström, “Moral
+Hazard and Observability” (<em>Bell J. Econ.</em> 1979); Bergemann &amp;
+Bonatti, “Markets for Information” (<em>Annu. Rev. Econ.</em> 2019).<a
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Hugh Rockoff, “The Free Banking Era: A Reexamination,”
+<em>Journal of Money, Credit and Banking</em> 6:2 (1974), pp. 141–167.
+For the political economy of the resolution, Calomiris &amp; Haber,
+<em>Fragile by Design</em> (Princeton, 2014). The discount-by-distance
+pattern was geometric in observable broker quotes by 1850.<a
+href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Ronald Coase, “Durability and Monopoly,” <em>J. Law
+&amp; Econ.</em> 15 (1972). Board &amp; Pycia, <a
+href="https://www.aeaweb.org/articles?id=10.1257/aer.104.2.656">“Outside
+Options and the Failure of the Coase Conjecture,”</a> <em>American
+Economic Review</em> 104:2 (Feb 2014). The labs’ eighty-percent gross
+margins are the Board–Pycia selection signature, not a moat.<a
+href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Joel Spolsky, <a
+href="https://www.joelonsoftware.com/2002/06/12/strategy-letter-v/">“Strategy
+Letter V: Commoditize Your Complement,”</a> joelonsoftware.com (June
+2002). Each layer’s complement is what it tries to cheapen. Hamilton
+Helmer, <em>Seven Powers</em> (2016), on counter-positioning: the labs’
+token meter is counter-positioned against the SaaS flat-rate model, and
+SaaS cannot retrofit per-token pricing without breaking customer
+relationships.<a href="#fnref7" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>TerraUSD / LUNA collapse, May 2022 — algorithmic peg
+failed; ~$45B value destroyed in a week. USDC depeg, March 2023 —
+Silicon Valley Bank held Circle’s reserves. Tether reserve fraction
+during 2016–18 was 27.6% per the NY Attorney General’s 2021 settlement.
+Three independent demonstrations that private currencies without
+sufficient backing fail discontinuously when confidence cracks.<a
+href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Leopold Aschenbrenner, <a
+href="https://situational-awareness.ai/">“Situational Awareness: The
+Decade Ahead”</a> (June 2024), section <a
+href="https://situational-awareness.ai/the-project/">“The Project”</a>.
+Predicts USG absorption of frontier labs into a Manhattan-Project-style
+consortium by 2027–28 under Lockheed/Boeing-type defense contracting
+arrangements, triggered by capability + geopolitical pressure.<a
+href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+
+  </article>
+
+  <aside class="sidenote-rail" id="sidenote-rail" aria-label="Citations and counter-arguments"></aside>
+
+</div>
+
+<footer class="footer">
+  <p>A working paper. Comments welcome.</p>
+</footer>
+
+<script>
+const themeToggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+function setTheme(t) {
+  root.setAttribute('data-theme', t);
+  localStorage.setItem('theme', t);
+  themeToggle.textContent = t === 'dark' ? '☀' : '◐';
+}
+themeToggle.addEventListener('click', () => {
+  const cur = root.getAttribute('data-theme');
+  setTheme(cur === 'dark' ? 'light' : 'dark');
+});
+const saved = localStorage.getItem('theme');
+if (saved) setTheme(saved);
+else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
+
+document.querySelectorAll('.toc-wrap a').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.pushState(null, '', link.getAttribute('href'));
+    }
+  });
+});
+
+const sections = document.querySelectorAll('section.level2[id]');
+const tocLinks = document.querySelectorAll('.toc-wrap a');
+function updateActiveSection() {
+  let active = null;
+  const fromTop = window.scrollY + 120;
+  sections.forEach(s => { if (s.offsetTop <= fromTop) active = s; });
+  tocLinks.forEach(l => l.classList.remove('active'));
+  if (active) {
+    const lk = document.querySelector('.toc-wrap a[href="#' + active.id + '"]');
+    if (lk) lk.classList.add('active');
+  }
+}
+window.addEventListener('scroll', updateActiveSection, { passive: true });
+updateActiveSection();
+
+// Render footnotes as right-rail sidenotes on wide screens
+function renderSidenotes() {
+  const rail = document.getElementById('sidenote-rail');
+  if (!rail) return;
+  rail.innerHTML = '';
+  if (window.innerWidth < 1101) return;
+  const refs = document.querySelectorAll('a.footnote-ref');
+  const fnList = document.querySelector('section.footnotes ol');
+  if (!fnList) return;
+  const fnItems = fnList.querySelectorAll('li');
+  const railTopOffset = rail.getBoundingClientRect().top + window.scrollY;
+  let lastBottom = 0;
+  refs.forEach((ref, idx) => {
+    const fn = fnItems[idx];
+    if (!fn) return;
+    const refTop = ref.getBoundingClientRect().top + window.scrollY;
+    let topPx = refTop - railTopOffset;
+    // Avoid overlap: push down if needed
+    if (topPx < lastBottom + 8) topPx = lastBottom + 8;
+    const note = document.createElement('div');
+    note.className = 'sidenote';
+    note.style.top = topPx + 'px';
+    const cleanHtml = fn.innerHTML.replace(/<a [^>]*footnote-back[^>]*>.*?<\/a>/g, '');
+    note.innerHTML = '<span class="sidenote-num">' + (idx + 1) + '</span>' + cleanHtml;
+    rail.appendChild(note);
+    // Measure after appending
+    lastBottom = topPx + note.offsetHeight;
+  });
+  rail.style.height = Math.max(lastBottom + 40, 100) + 'px';
+}
+
+if (window.MathJax && window.MathJax.startup) {
+  MathJax.startup.promise.then(() => {
+    setTimeout(renderSidenotes, 150);
+  });
+} else {
+  setTimeout(renderSidenotes, 800);
+}
+window.addEventListener('load', () => setTimeout(renderSidenotes, 600));
+window.addEventListener('resize', () => setTimeout(renderSidenotes, 100));
+</script>
+
+</body>
+</html>
