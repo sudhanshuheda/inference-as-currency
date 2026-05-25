@@ -290,6 +290,16 @@ body {
   line-height: 1.4;
   font-style: normal;
 }
+.content figure.diagram svg .dg-ax    { stroke: var(--fg-muted); stroke-width: 1; fill: none; }
+.content figure.diagram svg .dg-tick  { stroke: var(--fg-muted); stroke-width: 1; }
+.content figure.diagram svg .dg-a     { stroke: var(--accent);   stroke-width: 2; fill: none; }
+.content figure.diagram svg .dg-o     { stroke: #4a6ea8;         stroke-width: 2; fill: none; stroke-dasharray: 5 3; }
+.content figure.diagram svg .dg-lbl   { font-family: var(--sans); font-size: 10px; fill: var(--fg); }
+.content figure.diagram svg .dg-mut   { font-family: var(--sans); font-size: 9px;  fill: var(--fg-muted); }
+.content figure.diagram svg .dg-lbl-a { font-family: var(--sans); font-size: 10px; font-weight: 600; fill: var(--accent); }
+.content figure.diagram svg .dg-lbl-o { font-family: var(--sans); font-size: 10px; font-weight: 600; fill: #4a6ea8; }
+[data-theme="dark"] .content figure.diagram svg .dg-o     { stroke: #8aa8d8; }
+[data-theme="dark"] .content figure.diagram svg .dg-lbl-o { fill: #8aa8d8; }
 
 mjx-container { font-size: 100% !important; }
 mjx-container[display="true"] {
@@ -427,7 +437,7 @@ section.footnotes a.footnote-back { color: var(--fg-faint); margin-left: 0.3em; 
       <p class="subtitle">A monetary theory of the AI cycle, in three pages.</p>
       <div class="meta">
         <span>May 2026</span>
-        <span>1,636 words · 7 min</span>
+        <span>1,567 words · 7 min</span>
         <span>9 citations</span>
       </div>
     </div>
@@ -543,30 +553,22 @@ class="math inline">\(D\)</span>) or extend (moderate <span
 class="math inline">\(\lambda\)</span>, wide <span
 class="math inline">\(D\)</span>).</p>
 <figure class="diagram">
-<svg viewBox="0 0 360 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two redemption curves: Anthropic steep but high face inside a narrow perimeter; OpenAI shallow across a wide perimeter.">
-<defs> <style> .ax { stroke: var(–fg-muted, #5a5246); stroke-width: 1;
-fill: none; } .tick { stroke: var(–fg-muted, #5a5246); stroke-width: 1;
-} .a { stroke: var(–accent, #7a3b1e); stroke-width: 2; fill: none; } .o
-{ stroke: var(–link, #2a4f7a); stroke-width: 2; fill: none;
-stroke-dasharray: 5 3; } .lbl { font-family: var(–sans, “Source Sans
-3”), sans-serif; font-size: 10px; fill: var(–fg, #1a1611); } .lblmuted {
-font-family: var(–sans, “Source Sans 3”), sans-serif; font-size: 9px;
-fill: var(–fg-muted, #5a5246); } </style> </defs>
-<line class="ax" x1="40" y1="140" x2="340" y2="140"/>
-<line class="ax" x1="40" y1="20"  x2="40"  y2="140"/>
-<text class="lblmuted" x="38" y="18" text-anchor="end">V₀</text>
-<text class="lblmuted" x="40" y="155" text-anchor="middle">0</text>
-<text class="lbl"      x="190" y="165" text-anchor="middle">institutional
+<svg viewBox="0 0 360 175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two redemption curves: Anthropic steep but high face inside a narrow perimeter; OpenAI shallow across a wide perimeter.">
+<line class="dg-ax"   x1="40"  y1="140" x2="340" y2="140"/>
+<line class="dg-ax"   x1="40"  y1="20"  x2="40"  y2="140"/>
+<text class="dg-mut"  x="36"   y="22"   text-anchor="end">V_0</text>
+<text class="dg-mut"  x="36"   y="142"  text-anchor="end">0</text>
+<text class="dg-lbl"  x="190"  y="170"  text-anchor="middle">institutional
 distance d</text>
-<text class="lbl"      x="14"  y="80"  text-anchor="middle" transform="rotate(-90 14 80)">V(d)</text>
-<path class="a" d="M 40 25 Q 80 30 110 65 Q 140 110 170 138 L 200 140 L 340 140"/>
-<path class="o" d="M 40 55 Q 100 65 170 85 Q 240 105 310 122 L 340 128"/>
-<text class="lbl" x="115" y="55" fill="#7a3b1e">Anthropic —
-deepen</text> <text class="lbl" x="200" y="78" fill="#2a4f7a">OpenAI —
-extend</text> <line class="tick" x1="170" y1="138" x2="170" y2="143"/>
-<text class="lblmuted" x="170" y="155" text-anchor="middle">D_A</text>
-<line class="tick" x1="310" y1="125" x2="310" y2="130"/>
-<text class="lblmuted" x="310" y="155" text-anchor="middle">D_O</text>
+<text class="dg-lbl"  x="14"   y="80"   text-anchor="middle" transform="rotate(-90 14 80)">V(d)</text>
+<path class="dg-a"    d="M 40 28 C 65 32 95 70 140 120 C 160 135 175 139 195 140 L 340 140"/>
+<path class="dg-o"    d="M 40 70 C 110 80 200 105 280 125 C 305 131 325 135 340 137"/>
+<line class="dg-tick" x1="195" y1="138" x2="195" y2="144"/>
+<text class="dg-mut"  x="195"  y="156"  text-anchor="middle">D_A</text>
+<line class="dg-tick" x1="320" y1="135" x2="320" y2="141"/>
+<text class="dg-mut"  x="320"  y="156"  text-anchor="middle">D_O</text>
+<text class="dg-lbl-a" x="115" y="60">Anthropic — deepen</text>
+<text class="dg-lbl-o" x="180" y="95">OpenAI — extend</text>
 </svg>
 <figcaption>
 Redemption value vs. institutional distance. Anthropic minimises <span
